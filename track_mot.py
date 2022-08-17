@@ -166,6 +166,7 @@ def onlineTrack(lomo_config, idx, notify):
         concatedImage = np.concatenate((camera1_image, camera2_image), axis = 1)
 
         notify.doRender(cv2.cvtColor(concatedImage,cv2.COLOR_RGBA2RGB))
+    notify.doRenderEnd()
     #    cv2.imwrite("/Users/bytedance/Demo/dump/camera-{}.jpg".format(frame_index), concatedImage)
 
         #cv2.namedWindow("camera", 0)

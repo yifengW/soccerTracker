@@ -19,6 +19,10 @@ class WorkerThread(QThread):
     def run(self):
         onlineTrack(self.widget.lomo_config,self.widget.cmb.currentIndex(), self)
 
+    def doRenderEnd(self):
+        if self.widget != None:
+            self.widget.doRenderEnd()
+
     def doRender(self, img):
         if self.widget != None:
             self.widget.doRender(img)
@@ -83,6 +87,10 @@ class MainWidget(QWidget):
         self.thread = WorkerThread()
         self.thread.setWidget(self)
         self.thread.start()
+
+    def doRenderEnd(self):
+        self.video_canvas.setPixmap(self.black_pixmap)
+
 
     def doRender(self, img):
         qimg = QImage(img.data, img.shape[1], img.shape[0], QImage.Format_BGR888)
