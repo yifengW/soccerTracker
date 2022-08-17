@@ -17,7 +17,7 @@ class WorkerThread(QThread):
             self.is_exit = True
 
     def run(self):
-        onlineTrack(self.widget.lomo_config, self)
+        onlineTrack(self.widget.lomo_config,self.widget.cmb.currentIndex(), self)
 
     def doRender(self, img):
         if self.widget != None:

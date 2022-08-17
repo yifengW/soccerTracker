@@ -31,15 +31,20 @@ class Detection:
 
 
 
-def onlineTrack(lomo_config, notify):
-    mapping_H1_file = "../data/H_first.txt"
-    mapping_H2_file = "../data/H_second.txt"
+def onlineTrack(lomo_config, idx, notify):
+    if idx == 0:
+        prefix = "../data"
+    else:
+        prefix = "../data" + str(idx+1)
 
-    detection_camera1_file = "../data/camera1.txt"
-    detection_camera2_file = "../data/camera2.txt"
+    mapping_H1_file = prefix + "/H_first.txt"
+    mapping_H2_file = prefix + "/H_second.txt"
 
-    camera1_video_file = "../data/first/*.jpg"
-    camera2_video_file = "../data/second/*.jpg"
+    detection_camera1_file = prefix + "/camera1.txt"
+    detection_camera2_file = prefix + "/camera2.txt"
+
+    camera1_video_file = prefix + "/first/*.jpg"
+    camera2_video_file = prefix + "/second/*.jpg"
 
     camera1_video = glob.glob(camera1_video_file)
     camera2_video =glob.glob(camera2_video_file)
@@ -162,6 +167,7 @@ def onlineTrack(lomo_config, notify):
 
         notify.doRender(cv2.cvtColor(concatedImage,cv2.COLOR_RGBA2RGB))
     #    cv2.imwrite("/Users/bytedance/Demo/dump/camera-{}.jpg".format(frame_index), concatedImage)
+
         #cv2.namedWindow("camera", 0)
         #cv2.imshow("camera", concatedImage)
 
