@@ -158,7 +158,7 @@ def onlineTrack(lomo_config):
 
         concatedImage = np.concatenate((camera1_image, camera2_image), axis = 1)
 
-        cv2.imwrite("/Users/admin/Downloads/soccerOutput/camera-{}.jpg".format(frame_index), concatedImage)
+        cv2.imwrite("/Users/admin/Downloads/soccerOutput2/camera-{}.jpg".format(frame_index), concatedImage)
 
         #cv2.namedWindow("camera", 0)
         #cv2.imshow("camera", concatedImage)
@@ -173,6 +173,7 @@ def onlineTrack(lomo_config):
         # cv2.imwrite("./output/mot/c2/camere2-{}.jpg".format(frame_index),camera2_image)
         #cv2.waitKey(0)
         #pass
+        return concatedImage
 
 def cal_distance(tracklet,detections):
     """
