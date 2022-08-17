@@ -31,15 +31,15 @@ class Detection:
 
 
 
-def onlineTrack(lomo_config):
-    mapping_H1_file = "./data/H_first.txt"
-    mapping_H2_file = "./data/H_second.txt"
+def onlineTrack(lomo_config, notify):
+    mapping_H1_file = "../data/H_first.txt"
+    mapping_H2_file = "../data/H_second.txt"
 
-    detection_camera1_file = "./data/camera1.txt"
-    detection_camera2_file = "./data/camera2.txt"
+    detection_camera1_file = "../data/camera1.txt"
+    detection_camera2_file = "../data/camera2.txt"
 
-    camera1_video_file = "./data/first/*.jpg"
-    camera2_video_file = "./data/second/*.jpg"
+    camera1_video_file = "../data/first/*.jpg"
+    camera2_video_file = "../data/second/*.jpg"
 
     camera1_video = glob.glob(camera1_video_file)
     camera2_video =glob.glob(camera2_video_file)
@@ -70,6 +70,8 @@ def onlineTrack(lomo_config):
     tracklets = list()
     next_id = 0
     for frame_index  in  detection_camera1_key:
+        if notify.is_exit:
+            return
         item = frame_index-1
 
         camera1_detections = np.array(detection_camera1_group.get_group(frame_index).values[:,2:6]).astype(int)
@@ -158,8 +160,8 @@ def onlineTrack(lomo_config):
 
         concatedImage = np.concatenate((camera1_image, camera2_image), axis = 1)
 
-        cv2.imwrite("/Users/admin/Downloads/soccerOutput/camera-{}.jpg".format(frame_index), concatedImage)
-
+        notify.doRender(cv2.cvtColor(concatedImage,cv2.COLOR_RGBA2RGB))
+    #    cv2.imwrite("/Users/bytedance/Demo/dump/camera-{}.jpg".format(frame_index), concatedImage)
         #cv2.namedWindow("camera", 0)
         #cv2.imshow("camera", concatedImage)
 
@@ -440,13 +442,6 @@ def getLomoFeature(image,detections,lomo_config):
 
     return lomo_features
 
-
-if __name__ == "__main__":
-    lomo_config_path = "./lomo/config.json"
-    with open(lomo_config_path,"r") as f:
-        lomo_config = json.load(f)
-    onlineTrack(lomo_config)
-    pass
 
 
 
