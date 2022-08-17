@@ -35,7 +35,7 @@ class MainWidget(QWidget):
             self.lomo_config = json.load(f)
 
     def initUI(self):
-        self.resize(1280, 960)
+        self.resize(960, 270)
         self.setWindowTitle('Soccer Tracker')
 
         self.layout = QVBoxLayout(self)
@@ -46,9 +46,12 @@ class MainWidget(QWidget):
         self.lbl2 = QLabel("camera2")
         self.lbl1.setMaximumHeight(100)
         self.lbl2.setMaximumHeight(100)
-
+        self.layout3.addSpacerItem(QSpacerItem(0, 0, QSizePolicy.Expanding, QSizePolicy.Ignored))
         self.layout3.addWidget(self.lbl1)
+        self.layout3.addSpacerItem(QSpacerItem(0, 0, QSizePolicy.Expanding, QSizePolicy.Ignored))
+        self.layout3.addSpacerItem(QSpacerItem(0, 0, QSizePolicy.Expanding, QSizePolicy.Ignored))
         self.layout3.addWidget(self.lbl2)
+        self.layout3.addSpacerItem(QSpacerItem(0, 0, QSizePolicy.Expanding, QSizePolicy.Ignored))
 
         self.layout2 = QHBoxLayout()
 
@@ -67,7 +70,7 @@ class MainWidget(QWidget):
 
         self.layout.addLayout(self.layout2)
         self.setLayout(self.layout)
-        self.video_canvas.setMinimumHeight(600)
+        self.video_canvas.setMinimumHeight(400)
         self.black_pixmap = QPixmap(self.width(), self.height())
         self.black_pixmap.fill(Qt.black)
         self.video_canvas.setPixmap(self.black_pixmap)
@@ -77,7 +80,6 @@ class MainWidget(QWidget):
     def startDetection(self):
         if self.thread != None:
             self.thread.setWidget(None)
-            self.thread.exit()
         self.thread = WorkerThread()
         self.thread.setWidget(self)
         self.thread.start()
@@ -92,6 +94,6 @@ class MainWidget(QWidget):
 if __name__ == "__main__":
     app = QApplication(sys.argv)
     w = MainWidget()
-    w.setWindowTitle('Simple')
+    w.setWindowTitle('冲出亚洲')
     w.show()
     sys.exit(app.exec_())
